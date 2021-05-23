@@ -291,6 +291,14 @@ def split_result(data):
 
 def set_ventilation_level(nr):
     if 0 <= nr <= 4:
+        if nr == 1:
+          publish_message(msg="off", mqtt_path='comfoair/ha_climate_mode/fan')
+        elif nr == 2:
+          publish_message(msg='low', mqtt_path='comfoair/ha_climate_mode/fan')
+        elif nr == 3:
+          publish_message(msg='medium', mqtt_path='comfoair/ha_climate_mode/fan')
+        elif nr == 4:
+          publish_message(msg='high', mqtt_path='comfoair/ha_climate_mode/fan')
         data = send_command(b'\x00\x99', bytes([nr]), expect_reply=False)
     else:
         data = False
